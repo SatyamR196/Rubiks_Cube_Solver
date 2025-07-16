@@ -47,6 +47,12 @@ class RubiksCube {
         // There are a total of 18 basic moves in cube
     };
 
+    enum move_type { // where M is any general move, M=L, or M=R...
+        M1,
+        M2,
+        MPRIME,
+    };
+
     // getColor fxn defined below will return the color of mini-square in a given face
     virtual color getColor(face F, unsigned row, unsigned col) const = 0 ;
 
@@ -89,6 +95,10 @@ class RubiksCube {
 
     // Perform a move on rubix cube, return reference to the same object.
     RubiksCube& make_move(move m) ;
+
+    // This will help us make all 18 basic moves in a generalised way
+    // Note : adjecent faces must be given in CW order if face F is at top
+    virtual RubiksCube& move_helper(face F, vector<face>adj_face, move_type MT) = 0;
 
     // This function applies the inverse of the given move
     // invert(L) would apply L'
