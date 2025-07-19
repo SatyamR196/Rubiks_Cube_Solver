@@ -20,9 +20,24 @@ private:
         if (rCube.isSolved()) return true;
         if (depth > max_depth) return false;
 
-        // explore edges(18 basic moves)
-        for (int m =0 ; m<17 ; m++) {
+        // explore edges(18 basic moves) using plain loop from [0-17]
+        for (int m =0 ; m<18 ; m++) {
             rCube.make_move(RubiksCube::move(m)) ;
+            solution.push_back(RubiksCube::move(m)) ;
+            if (dfs(rCube,depth+1)) return true ;
+            solution.pop_back() ;
+            rCube.invert_move(RubiksCube::move(m)) ;
+        }
+        return false;
+    }
+
+    bool dfs_rand(M &rCube,size_t depth) {
+        if (rCube.isSolved()) return true;
+        if (depth > max_depth) return false;
+
+        // explore edges(18 basic moves) choosing any random move between [0-17]
+        for (int m =0 ; m<18 ; m++) {
+            rCube.make_move(RubiksCube::move(RubiksCube::getRandInt(0,17))) ;
             solution.push_back(RubiksCube::move(m)) ;
             if (dfs(rCube,depth+1)) return true ;
             solution.pop_back() ;
@@ -33,13 +48,18 @@ private:
 
 public:
     M rCube;
-    explicit DFS_Solver(M _rCube, size_t const _max_depth=6) {
+    explicit DFS_Solver(M _rCube, size_t _max_depth=6) {
         rCube = _rCube ;
         max_depth = _max_depth ;
     }
 
     vector<RubiksCube::move> solve() {
         dfs(rCube,1) ;
+        return solution ;
+    }
+
+    vector<RubiksCube::move> solve_rand() {
+        dfs_rand(rCube,1) ;
         return solution ;
     }
 

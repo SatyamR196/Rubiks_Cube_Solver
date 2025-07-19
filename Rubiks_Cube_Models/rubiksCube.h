@@ -89,6 +89,8 @@ class RubiksCube {
     // will be implemented in .cpp file
     void print() const;
 
+    //will be implemented in .cpp file
+    static int getRandInt(int min,int max) ;
     // Fxn randomShuffle(x) : return a vector of moves made to jumble the cube
     // from solved state using x random moves
     vector<move> randomShuffle(unsigned x) ;
@@ -98,7 +100,7 @@ class RubiksCube {
 
     // This will help us make all 18 basic moves in a generalised way
     // Note : adjecent faces must be given in CW order if face F is at top
-    virtual RubiksCube& move_helper(face F, vector<face>adj_face, move_type MT) = 0;
+    // virtual RubiksCube& move_helper(face F, vector<face>adj_face, move_type MT) = 0;
 
     // This function applies the inverse of the given move
     // invert(L) would apply L'

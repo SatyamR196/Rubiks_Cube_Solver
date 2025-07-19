@@ -108,69 +108,14 @@ public:
 
     //IMPLEMENT 18 BASIC MOVES :-
 
-    // Using 1 single move_helper Fxn :-
-    RubiksCube3dArray& move_helper(face const F, vector<face> const adj_face, move_type MT) override{
-        face const AF1 = adj_face[0], AF2 = adj_face[1], AF3 = adj_face[2], AF4 = adj_face[3] ;
-
-        // Make a copy of cube's current state
-        color temp_cube[6][3][3] ;
-        for (int i = 0 ; i<6 ; i++) {
-            for (int row=0 ; row<3 ; row++) {
-                for (int col=0 ; col<3 ; col++) {
-                    temp_cube[i][row][col] = cube[i][row][col] ;
-                }
-            }
-        }
-
-        if (MT == M1) {
-            rotateCW(F) ; // First perform rotate action on the given Face itself
-            // Then perform changes on other faces due to given move:
-            // make changes in state of cube due to rotation of cube.
-            // AF2(adjacent face 2), row=0 --will--become--> AF1(adjacent face 1) , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF2][0][i] = temp_cube[AF1][0][i] ;
-            // AF3, row=0 --will--become--> AF2 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF3][0][i] = temp_cube[AF2][0][i] ;
-            // AF4, row=0 --will--become--> AF3 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF4][0][i] = temp_cube[AF3][0][i] ;
-            // AF1, row=0 --will--become--> AF4 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF1][0][i] = temp_cube[AF4][0][i] ;
-        }
-        else if (MT==M2) {
-            rotateCW(F) ; // First perform rotate action on the given Face itself
-            rotateCW(F) ;
-            // Then perform changes on other faces due to given move:
-            // make changes in state of cube due to rotation of cube u() .
-            // AF3, row=0 --will--become--> AF1 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF3][0][i] = temp_cube[AF1][0][i] ;
-            // AF4, row=0 --will--become--> AF2 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF4][0][i] = temp_cube[AF2][0][i] ;
-            // AF1, row=0 --will--become--> AF3 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF1][0][i] = temp_cube[AF3][0][i] ;
-            // AF2, row=0 --will--become--> AF4 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF2][0][i] = temp_cube[AF4][0][i] ;
-        }
-        else if (MT==MPRIME) {
-            rotateACW(F) ;
-            // AF1(adjacent face 1), row=0 --will--become--> AF2(adjacent face 2) , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF1][0][i] = temp_cube[AF2][0][i] ;
-            // AF2, row=0 --will--become--> AF3 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF2][0][i] = temp_cube[AF3][0][i] ;
-            // AF3, row=0 --will--become--> AF4 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF3][0][i] = temp_cube[AF4][0][i] ;
-            // AF4, row=0 --will--become--> AF1 , row=0 ;
-            for (int i=0 ; i<3 ; i++) cube[AF4][0][i] = temp_cube[AF1][0][i] ;
-        }
-
-        return *this ;
-    }
-
     // Using 18 different individual fans
     //---------------------------UP FACE MOVES---------------------------
     RubiksCube3dArray& u() override{
         rotateCW(UP) ; // First perform rotate action on Face
         // Then perform changes on other face due to u() ;
-        color temp_cube[6][3][3] ;
 
+        // Create a copy of cube of saving original state before move was performed
+        color temp_cube[6][3][3] ;
         for (int F = 0 ; F<6 ; F++) {
             for (int row=0 ; row<3 ; row++) {
                 for (int col=0 ; col<3 ; col++) {
@@ -199,10 +144,19 @@ public:
     }
 
     RubiksCube3dArray& uPrime() override{
-        rotateACW(UP) ; // First perform rotate action on Face
-        // Then perform changes on other face due to u() ;
-        color temp_cube[6][3][3] ;
+        u();
+        u();
+        u();
+        return *this ;
+    }
 
+    //---------------------------LEFT FACE MOVES---------------------------
+    RubiksCube3dArray& l() override {
+        rotateCW(LEFT) ; // First perform rotate action on Face
+        // Then perform changes on other face due to u() ;
+
+        // Create a copy of cube of saving original state before move was performed
+        color temp_cube[6][3][3] ;
         for (int F = 0 ; F<6 ; F++) {
             for (int row=0 ; row<3 ; row++) {
                 for (int col=0 ; col<3 ; col++) {
@@ -212,66 +166,151 @@ public:
         }
 
         // make changes in state of cube due to rotation of cube u() .
-        // FRONT face, row=0 --will--become--> LEFT Face, row=0 ;
-        for (int i=0 ; i<3 ; i++) cube[FRONT][0][i] = temp_cube[LEFT][0][i] ;
-        // LEFT face, row=0 --will--become--> BACK Face, row=0 ;
-        for (int i=0 ; i<3 ; i++) cube[LEFT][0][i] = temp_cube[BACK][0][i] ;
-        // BACK face, row=0 --will--become--> RIGHT Face, row=0 ;
-        for (int i=0 ; i<3 ; i++) cube[BACK][0][i] = temp_cube[RIGHT][0][i] ;
-        // RIGHT face, row=0 --will--become--> FRONT Face, row=0 ;
-        for (int i=0 ; i<3 ; i++) cube[RIGHT][0][i] = temp_cube[FRONT][0][i] ;
+        for (int i=0 ; i<3 ; i++) cube[UP][i][0] = temp_cube[BACK][2-i][2] ;
+        for (int i = 0; i < 3; i++) cube[BACK][2 - i][2] = temp_cube[DOWN][i][0] ;
+        for (int i = 0; i < 3; i++) cube[DOWN][i][0] = temp_cube[FRONT][i][0] ;
+        for (int i = 0; i < 3; i++) cube[FRONT][i][0] = temp_cube[UP][i][0] ;
 
-        return *this ;
-    }
-
-    //---------------------------LEFT FACE MOVES---------------------------
-    RubiksCube3dArray& l() override {
         return *this ;
     }
     RubiksCube3dArray& l2() override {
+        l() ;
+        l() ;
         return *this ;
     }
     RubiksCube3dArray& lPrime() override {
+        l() ;
+        l() ;
+        l() ;
         return *this ;
     }
     //---------------------------FRONT FACE MOVES---------------------------
     RubiksCube3dArray& f() override {
+        rotateCW(FRONT) ; // First perform rotate action on Face
+        // Then perform changes on other face due to f() ;
+
+        // Create a copy of cube of saving original state before move was performed
+        color temp_cube[6][3][3] ;
+        for (int F = 0 ; F<6 ; F++) {
+            for (int row=0 ; row<3 ; row++) {
+                for (int col=0 ; col<3 ; col++) {
+                    temp_cube[F][row][col] = cube[F][row][col] ;
+                }
+            }
+        }
+
+        for (int i = 0; i < 3; i++) cube[RIGHT][i][0] = temp_cube[UP][2][i];
+        for (int i = 0; i < 3; i++) cube[UP][2][i] = temp_cube[LEFT][2 - i][2];
+        for (int i = 0; i < 3; i++) cube[LEFT][2 - i][2] = temp_cube[DOWN][0][2 - i];
+        for (int i = 0; i < 3; i++) cube[DOWN][0][2 - i] = temp_cube[RIGHT][i][0];
         return *this ;
     }
     RubiksCube3dArray& f2() override {
+        f();
+        f();
         return *this ;
     }
     RubiksCube3dArray& fPrime() override {
+        f();
+        f();
+        f();
         return *this ;
     }
     //---------------------------RIGHT FACE MOVES---------------------------
     RubiksCube3dArray& r() override {
+        rotateCW(RIGHT) ;
+        // Then perform changes on other face due to f() ;
+
+        // Create a copy of cube of saving original state before move was performed
+        color temp_cube[6][3][3] ;
+        for (int F = 0 ; F<6 ; F++) {
+            for (int row=0 ; row<3 ; row++) {
+                for (int col=0 ; col<3 ; col++) {
+                    temp_cube[F][row][col] = cube[F][row][col] ;
+                }
+            }
+        }
+
+        for (int i = 0; i < 3; i++) cube[BACK][i][0] = temp_cube[UP][2 - i][2];
+        for (int i = 0; i < 3; i++) cube[UP][2 - i][2] = temp_cube[FRONT][2 - i][2];
+        for (int i = 0; i < 3; i++) cube[FRONT][2 - i][2] = temp_cube[DOWN][2 - i][2];
+        for (int i = 0; i < 3; i++) cube[DOWN][2 - i][2] = temp_cube[BACK][i][0];
         return *this ;
     }
     RubiksCube3dArray& r2() override {
+        r();
+        r();
         return *this ;
     }
     RubiksCube3dArray& rPrime() override {
+        r();
+        r();
+        r();
         return *this ;
     }
     //---------------------------BACK FACE MOVES---------------------------
     RubiksCube3dArray& b() override {
+        rotateCW(BACK) ;
+        // Then perform changes on other face due to f() ;
+
+        // Create a copy of cube of saving original state before move was performed
+        color temp_cube[6][3][3] ;
+        for (int F = 0 ; F<6 ; F++) {
+            for (int row=0 ; row<3 ; row++) {
+                for (int col=0 ; col<3 ; col++) {
+                    temp_cube[F][row][col] = cube[F][row][col] ;
+                }
+            }
+        }
+
+        for (int i = 0; i < 3; i++) cube[LEFT][i][0] = temp_cube[UP][0][2 - i];
+        for (int i = 0; i < 3; i++) cube[UP][0][2 - i] = temp_cube[RIGHT][2 - i][2];
+        for (int i = 0; i < 3; i++) cube[RIGHT][2 - i][2] = temp_cube[DOWN][2][i];
+        for (int i = 0; i < 3; i++) cube[DOWN][2][i] = temp_cube[LEFT][i][0];
+
         return *this ;
     }
     RubiksCube3dArray& b2() override {
+        b();
+        b() ;
         return *this ;
     }
     RubiksCube3dArray& bPrime() override {
+        b();
+        b();
+        b();
         return *this ;
     }
     //---------------------------DOWN FACE MOVES---------------------------
     RubiksCube3dArray& d() override {
+        rotateCW(DOWN) ;
+        // Then perform changes on other face due to f() ;
+
+        // Create a copy of cube of saving original state before move was performed
+        color temp_cube[6][3][3] ;
+        for (int F = 0 ; F<6 ; F++) {
+            for (int row=0 ; row<3 ; row++) {
+                for (int col=0 ; col<3 ; col++) {
+                    temp_cube[F][row][col] = cube[F][row][col] ;
+                }
+            }
+        }
+        for (int i = 0; i < 3; i++) cube[RIGHT][2][i] = temp_cube[FRONT][2][i];
+        for (int i = 0; i < 3; i++) cube[FRONT][2][i] = temp_cube[LEFT][2][i];
+        for (int i = 0; i < 3; i++) cube[LEFT][2][i] = temp_cube[BACK][2][i];
+        for (int i = 0; i < 3; i++) cube[BACK][2][i] = temp_cube[RIGHT][2][i];
+
         return *this ;
     }
     RubiksCube3dArray& d2() override {
+        d();
+        d();
         return *this ;
     }
     RubiksCube3dArray& dPrime() override {
+        d();
+        d();
+        d();
         return *this ;
     }
     //---------------------------x FACE MOVES Ends here x---------------------------
