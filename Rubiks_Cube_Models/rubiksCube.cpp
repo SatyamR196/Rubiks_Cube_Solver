@@ -132,7 +132,7 @@ RubiksCube& RubiksCube::invert_move(move m) {
     }
 }
 
-void RubiksCube::print() {
+void RubiksCube::print() const{
     cout<<"RUBIKS CUBE (Open Layout):"<<endl<<endl;
 
     // Section 1 (UP Face)

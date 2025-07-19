@@ -16,7 +16,7 @@ private:
     vector<RubiksCube::move> solution;
     size_t max_depth;
 
-    bool dfs(M rCube,size_t depth) {
+    bool dfs(M &rCube,size_t depth) {
         if (rCube.isSolved()) return true;
         if (depth > max_depth) return false;
 
@@ -26,7 +26,7 @@ private:
             solution.push_back(RubiksCube::move(m)) ;
             if (dfs(rCube,depth+1)) return true ;
             solution.pop_back() ;
-            rCube.inverse_move(RubiksCube::move(m)) ;
+            rCube.invert_move(RubiksCube::move(m)) ;
         }
         return false;
     }

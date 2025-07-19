@@ -87,7 +87,7 @@ class RubiksCube {
      */
 
     // will be implemented in .cpp file
-    static void print();
+    void print() const;
 
     // Fxn randomShuffle(x) : return a vector of moves made to jumble the cube
     // from solved state using x random moves
