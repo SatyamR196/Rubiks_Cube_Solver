@@ -176,10 +176,13 @@ void RubiksCube::print() const{
     cout<<endl;
 }
 
-// Creating generator and distribution (for generating random nums)
-random_device rd;  // Seed (non-deterministic)
-mt19937 gen(rd()); // Mersenne Twister engine
-uniform_int_distribution<> dist(0, 17); // range [0, 17]
+static int getRandInt(int min,int max) {
+    // Creating generator and distribution (for generating random nums)
+    random_device rd;  // Seed (non-deterministic)
+    mt19937 gen(rd()); // Mersenne Twister engine
+    uniform_int_distribution<> dist(0, 17); // range [0, 17]
+    return dist(gen);
+}
 
 vector<RubiksCube::move> RubiksCube::randomShuffle(unsigned x) {
     vector<move> steps ;
