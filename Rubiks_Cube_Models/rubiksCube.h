@@ -104,7 +104,7 @@ class RubiksCube {
     // invert(L) would apply L'
     //invert (R2) would apply R2(since its own inverse is itself)
     //invert (U') would apply U
-    RubiksCube& inverse_move(move m) ;
+    RubiksCube& invert_move(move m) ;
 
     // Each fxn will simulate one of the 18 basic moves.
     virtual RubiksCube &f() = 0;

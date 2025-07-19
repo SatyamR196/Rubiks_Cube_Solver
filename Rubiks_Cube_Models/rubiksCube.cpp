@@ -103,31 +103,31 @@ RubiksCube& RubiksCube::make_move(move m) {
     }
 }
 
-RubiksCube& RubiksCube::inverse_move(move m) {
+RubiksCube& RubiksCube::invert_move(move m) {
     switch (m) {
-        case L : return this->lPrime() ;
-        case LPRIME : return this->l() ;
-        case L2 : return this->l2() ;
+        case L : return this->make_move(LPRIME) ;
+        case LPRIME : return this->make_move(L) ;
+        case L2 : return this->make_move(L2) ;
 
-        case R : return this->rPrime() ;
-        case RPRIME : return this->r() ;
-        case R2 : return this->r2() ;
+        case R : return this->make_move(RPRIME) ;
+        case RPRIME : return this->make_move(R) ;
+        case R2 : return this->make_move(R2) ;
 
-        case U : return this->uPrime() ;
-        case UPRIME : return this->u() ;
-        case U2 : return this->u2() ;
+        case U : return this->make_move(UPRIME) ;
+        case UPRIME : return this->make_move(U) ;
+        case U2 : return this->make_move(U2) ;
 
-        case D : return this->dPrime() ;
-        case DPRIME : return this->d() ;
-        case D2 : return this->d2() ;
+        case D : return this->make_move(DPRIME) ;
+        case DPRIME : return this->make_move(D) ;
+        case D2 : return this->make_move(D2) ;
 
-        case F : return this->fPrime() ;
-        case FPRIME : return this->f() ;
-        case F2 : return this->f2() ;
+        case F : return this->make_move(FPRIME) ;
+        case FPRIME : return this->make_move(F) ;
+        case F2 : return this->make_move(F2) ;
 
-        case B : return this->bPrime() ;
-        case BPRIME : return this->b() ;
-        case B2 : return this->b2() ;
+        case B : return this->make_move(BPRIME) ;
+        case BPRIME : return this->make_move(B) ;
+        case B2 : return this->make_move(B2) ;
 
     }
 }
