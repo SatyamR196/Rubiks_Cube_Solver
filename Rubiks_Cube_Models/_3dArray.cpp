@@ -52,9 +52,9 @@ public:
 
     bool isSolved() const override {
         for (int F = 0 ; F<6 ; F++) {
+            auto const c = static_cast<color>(F) ;
             for (int row=0 ; row<3 ; row++) {
                 for (int col=0 ; col<3 ; col++) {
-                    auto const c = static_cast<color>(F) ;
                     if (cube[F][row][col] != c) return false ;
                 }
             }

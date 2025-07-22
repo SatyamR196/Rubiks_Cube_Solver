@@ -15,6 +15,8 @@ class DFS_Solver {
 private:
     vector<RubiksCube::move> solution;
     size_t max_depth;
+    //create random num generator
+    mt19937 g{random_device{}()};
 
     bool dfs(M &rCube,size_t depth) {
         if (rCube.isSolved()) return true;
@@ -31,17 +33,30 @@ private:
         return false;
     }
 
+
     bool dfs_rand(M &rCube,size_t depth) {
         if (rCube.isSolved()) return true;
         if (depth > max_depth) return false;
 
+        vector<RubiksCube::move> all_moves = {
+            RubiksCube::U, RubiksCube::U2, RubiksCube::UPRIME,
+            RubiksCube::L, RubiksCube::L2, RubiksCube::LPRIME,
+            RubiksCube::F,RubiksCube::F2,RubiksCube::FPRIME,
+            RubiksCube::D,RubiksCube::D2,RubiksCube::DPRIME,
+            RubiksCube::R,RubiksCube::R2,RubiksCube::RPRIME,
+            RubiksCube::B,RubiksCube::B2,RubiksCube::BPRIME
+        } ;
+
+        // Shuffle the moves in the arr
+        std::shuffle(all_moves.begin(), all_moves.end(), g);
+
         // explore edges(18 basic moves) choosing any random move between [0-17]
-        for (int m =0 ; m<18 ; m++) {
-            rCube.make_move(RubiksCube::move(RubiksCube::getRandInt(0,17))) ;
-            solution.push_back(RubiksCube::move(m)) ;
+        for (auto mv : all_moves) {
+            rCube.make_move(mv);
+            solution.push_back(mv);
             if (dfs(rCube,depth+1)) return true ;
             solution.pop_back() ;
-            rCube.invert_move(RubiksCube::move(m)) ;
+            rCube.invert_move(mv) ;
         }
         return false;
     }
@@ -54,11 +69,13 @@ public:
     }
 
     vector<RubiksCube::move> solve() {
+        solution.clear();
         dfs(rCube,1) ;
         return solution ;
     }
 
     vector<RubiksCube::move> solve_rand() {
+        solution.clear();
         dfs_rand(rCube,1) ;
         return solution ;
     }

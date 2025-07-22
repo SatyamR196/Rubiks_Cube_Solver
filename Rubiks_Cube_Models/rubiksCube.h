@@ -16,6 +16,8 @@ using namespace std;
 
 class RubiksCube {
     public:
+    virtual ~RubiksCube() = default;
+
     enum face {
         UP = 0,
         LEFT = 1,
