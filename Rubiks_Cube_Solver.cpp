@@ -4,11 +4,12 @@
 #include "Rubiks_Cube_Models/_1dArray.cpp"
 #include "Rubiks_Cube_Models/_bitBoard.cpp"
 #include "Rubiks_Cube_Solvers/DFS_Solver.h"
+#include "Rubiks_Cube_Solvers/ID_DFS_Solver.h"
 using namespace std;
 
 signed main() {
     cout<<"Hello People !"<<endl;
-    //----------------------------DFS Solver + 3d Arr model---------------------------------------
+    //----------------------------DFS Solver + all cube model---------------------------------------
     // RubiksCube3dArray cube;
     // RubiksCube1dArray cube;
     RubiksCubebitBoard cube;
@@ -37,11 +38,12 @@ signed main() {
 
     // DFS_Solver<RubiksCube3dArray, Hash3dArray> dfsSolver(cube, 6);
     // DFS_Solver<RubiksCube1dArray, Hash1dArray> dfsSolver(cube, 6);
-    DFS_Solver<RubiksCubebitBoard, HashbitBoard> dfsSolver(cube, 6);
+    // DFS_Solver<RubiksCubebitBoard, HashbitBoard> dfsSolver(cube, 6);
+    ID_DFS_Solver<RubiksCubebitBoard, HashbitBoard> dfsSolver(cube, 6);
 
     auto start = chrono::high_resolution_clock::now();
-    vector<RubiksCube::move> solve_moves = dfsSolver.solve();
-    // vector<RubiksCube::move> solve_moves = dfsSolver.solve_rand();
+    // vector<RubiksCube::move> solve_moves = dfsSolver.solve();
+    vector<RubiksCube::move> solve_moves = dfsSolver.solve_rand();
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
 
