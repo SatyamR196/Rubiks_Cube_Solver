@@ -5,6 +5,7 @@
 #include "Rubiks_Cube_Models/_bitBoard.cpp"
 #include "Rubiks_Cube_Solvers/DFS_Solver.h"
 #include "Rubiks_Cube_Solvers/ID_DFS_Solver.h"
+#include "Rubiks_Cube_Solvers/BFS_Solver.h"
 using namespace std;
 
 signed main() {
@@ -22,15 +23,15 @@ signed main() {
     // cube.make_move(RubiksCube::R) ;
     // cube.print();
 
-    // vector<RubiksCube::move> shuffle_moves = cube.randomShuffle(6);
-    vector<RubiksCube::move> shuffle_moves = {RubiksCube::BPRIME, RubiksCube::D2,
-    RubiksCube::U2, RubiksCube::D, RubiksCube::RPRIME, RubiksCube::D  } ;
-    cube.make_move(RubiksCube::BPRIME) ;
-    cube.make_move(RubiksCube::D2) ;
-    cube.make_move(RubiksCube::U2) ;
-    cube.make_move(RubiksCube::D) ;
-    cube.make_move(RubiksCube::RPRIME) ;
-    cube.make_move(RubiksCube::D) ;
+    vector<RubiksCube::move> shuffle_moves = cube.randomShuffle(6);
+    // vector<RubiksCube::move> shuffle_moves = {RubiksCube::BPRIME, RubiksCube::D2,
+    // RubiksCube::U2, RubiksCube::D, RubiksCube::RPRIME, RubiksCube::D  } ;
+    // cube.make_move(RubiksCube::BPRIME) ;
+    // cube.make_move(RubiksCube::D2) ;
+    // cube.make_move(RubiksCube::U2) ;
+    // cube.make_move(RubiksCube::D) ;
+    // cube.make_move(RubiksCube::RPRIME) ;
+    // cube.make_move(RubiksCube::D) ;
     cout<<"Random Shuffle Moves: "<<endl;
     for (auto move: shuffle_moves) cout << cube.getMove(move) << " ";
     cout << "\n";
@@ -39,11 +40,12 @@ signed main() {
     // DFS_Solver<RubiksCube3dArray, Hash3dArray> dfsSolver(cube, 6);
     // DFS_Solver<RubiksCube1dArray, Hash1dArray> dfsSolver(cube, 6);
     // DFS_Solver<RubiksCubebitBoard, HashbitBoard> dfsSolver(cube, 6);
-    ID_DFS_Solver<RubiksCubebitBoard, HashbitBoard> dfsSolver(cube, 6);
+    // ID_DFS_Solver<RubiksCubebitBoard, HashbitBoard> dfsSolver(cube, 6);
+    BFS_Solver<RubiksCubebitBoard, HashbitBoard> Solver(cube);
 
     auto start = chrono::high_resolution_clock::now();
-    // vector<RubiksCube::move> solve_moves = dfsSolver.solve();
-    vector<RubiksCube::move> solve_moves = dfsSolver.solve_rand();
+    vector<RubiksCube::move> solve_moves = Solver.solve();
+    // vector<RubiksCube::move> solve_moves = Solver.solve_rand();
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(stop - start);
 
@@ -51,7 +53,7 @@ signed main() {
     cout<<"Solution Moves: "<<endl;
     for (auto move: solve_moves) cout << cube.getMove(move) << " ";
     cout << "\n";
-    cout<<"Is it solved : "<<dfsSolver.rCube.isSolved()<<endl;
-    dfsSolver.rCube.print();
+    cout<<"Is it solved : "<<Solver.rCube.isSolved()<<endl;
+    Solver.rCube.print();
 
 }

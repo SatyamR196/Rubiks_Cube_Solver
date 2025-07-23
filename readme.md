@@ -3,7 +3,7 @@
 ----
 ## Algorithms :
 - DFS
-- ID DFS: Iterative Depth, Depth first Search
+- ID-DFS: Iterative Deepening, Depth first Search
 - BFS
 
 ---
