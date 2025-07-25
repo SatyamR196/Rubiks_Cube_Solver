@@ -48,7 +48,7 @@ signed main() {
     cube.print();
 
     // RANDOMLY SHUFFLE CUBE TO simulate jumbled state :-
-    vector<RubiksCube::move> shuffle_moves = cube.randomShuffle(11);
+    vector<RubiksCube::move> shuffle_moves = cube.randomShuffle(13);
 
     // vector<RubiksCube::move> shuffle_moves = {RubiksCube::BPRIME, RubiksCube::D2,
     // RubiksCube::U2, RubiksCube::D, RubiksCube::RPRIME, RubiksCube::D  } ;
