@@ -13,4 +13,5 @@ add_executable(Rubix_Cube_Solver Rubiks_Cube_Solver.cpp
         Rubiks_Cube_Solvers/ID_DFS_Solver.h
         Rubiks_Cube_Solvers/BFS_Solver.h
         Rubiks_Cube_Solvers/IDAStar_Solver.h
+        PatternDatabases/CornerPatternDatabase.h
 )
