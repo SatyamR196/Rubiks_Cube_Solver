@@ -64,16 +64,17 @@ private:
             // Explore moves
             node.depth++ ; // increase depth for upcoming states, nodes
             for (int m = 0 ; m < 18 ; m++) {
-                cout<<"Value of m in loop : "<<m<<endl;
+                // cout<<"Value of m in loop : "<<m<<endl;
                 auto curr_move = RubiksCube::move(m) ;
                 node.cube.make_move(curr_move);
 
                 if (!visited[node.cube]) {
                     node.h = cornerDB.getNumMoves(node.cube);
                     int f = node.depth + node.h ;
-                    cout<<bound<<" (<- bound , f ->) "<<f<<endl;
+                    // cout<<bound<<" (<- bound , f ->) "<<f<<endl;
                     if (f <= bound) {
-                        cout<<"PUSHED NODE CNT :"<<++pushed_node_cnt<<endl;
+                        // cout<<"PUSHED NODE CNT :"<<++pushed_node_cnt<<endl;
+                        // cout<<"Heuristic: "<<node.h<<endl;
                         pq.push(node) ;
                         parent[node.cube] = curr_move;
                     }
@@ -85,17 +86,17 @@ private:
                 node.cube.invert_move(curr_move) ;
             }
         }
-        cout<<"END1"<<endl;
+        // cout<<"END1"<<endl;
         return {rCube,next_bound};
-        cout<<"END2"<<endl;
     }
 
 public:
 
     M rCube ;
 
-    IDAStar_Solver(M _rCube) {
+    IDAStar_Solver(M _rCube, string const &fileName) {
         rCube = _rCube ;
+        cornerDB.fromFile(fileName);
     }
 
     vector<RubiksCube::move> solve() {

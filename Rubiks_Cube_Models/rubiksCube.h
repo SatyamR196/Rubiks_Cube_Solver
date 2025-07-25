@@ -136,11 +136,11 @@ class RubiksCube {
     virtual RubiksCube &b2() = 0;
 
     // get the colors of corner cubie
-    string getCornerColorString(unsigned ind) const;
+    string getCornerColorString(uint8_t ind) const;
 
-    unsigned getCornerIndex(unsigned ind) const;
+    uint8_t getCornerIndex(uint8_t ind) const;
 
-    unsigned getCornerOrientation(unsigned ind) const;
+    uint8_t getCornerOrientation(uint8_t ind) const;
 };
 
 #endif //RUBIKSCUBE_H
