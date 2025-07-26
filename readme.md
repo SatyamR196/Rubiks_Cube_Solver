@@ -1,17 +1,8 @@
-
-<h1 style="display: flex; align-items: center;">
-  <img src="Assets/head_img.png" alt="Rubik's Cube" width="40" style="margin-right: 10px;" />
-  Rubik's Cube Solver
-  <hr>
-</h1>
+<br>
+<img src="Assets/Header.png" alt="Rubik's Cube" />
 
 ---
-
-<p style="display: flex; align-items: center; justify-content: center;">
-  <img src="Assets/img_3.png" alt="Image 1" style="width: 40%; margin-right: 2%;" />
-  <img src="Assets/arrow.png" alt="Arrow" style="width: 15%; margin: 0 1%; vertical-align: middle;" />
-  <img src="Assets/img.png" alt="Image 2" style="width: 40%; margin-left: 2%;" />
-</p>
+<img src="Assets/Solve_cube.png" alt="Rubik's Cube" />
 
 
 <b>A collection of Rubik’s Cube solvers implemented with different algorithms and models. This project showcases multiple cube representations and search strategies to solve any given cube configuration.</b>
@@ -469,6 +460,13 @@ An estimate `h(n)` of the cost to reach the goal from node `n`. It is the heart 
 
 </details>
 
+<details>
+
+<summary><strong>Read about How Heuristic is calculated for Rubik's Cube here </strong></summary>
+
+Data
+
+</details>
 
 ---
 ## 📬 Contributions
