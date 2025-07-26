@@ -4,7 +4,6 @@
 ---
 <img src="Assets/Solve_cube.png" alt="Rubik's Cube" />
 
-
 <b>A collection of Rubik’s Cube solvers implemented with different algorithms and models. This project showcases multiple cube representations and search strategies to solve any given cube configuration.</b>
 
 ---
@@ -82,7 +81,7 @@ To overcome this:
 
 This max depth is configurable as a **hyperparameter**, useful for experimentation.
 
----
+<hr>
 
 #### ⚠️ Pitfalls: When DFS Fails Unexpectedly
 
