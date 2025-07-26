@@ -81,7 +81,8 @@ To overcome this:
 
 This max depth is configurable as a **hyperparameter**, useful for experimentation.
 
-<hr>
+─────────────────────────────────────────────────
+
 
 #### ⚠️ Pitfalls: When DFS Fails Unexpectedly
 
@@ -94,7 +95,7 @@ Example:
 
 This shouldn't happen. Why does it?
 
----
+─────────────────────────────────────────────────
 
 ### 🤯 The Core Problem
 
@@ -118,7 +119,7 @@ By **disabling the visited-node tracking**, the solver can:
 
 Yes, this increases computational complexity, but it ensures **correctness**.
 
----
+─────────────────────────────────────────────────
 
 ### 🧠 Key Takeaways
 
@@ -126,14 +127,14 @@ Yes, this increases computational complexity, but it ensures **correctness**.
 - Removing the visited map allows complete exploration
 - Correctness > Performance for DFS in this case
 
----
+─────────────────────────────────────────────────
 ### 🔍 Algorithm Steps
 
 Both `solve()` and `solve_rand()` use a recursive **depth-first search** to explore cube states. The difference is:
 - `solve()` applies all 18 moves in fixed order.
 - `solve_rand()` shuffles the moves at each depth to introduce randomness.
 
----
+─────────────────────────────────────────────────
 
 #### 🧠 DFS – Deterministic Version (`solve()`)
 
@@ -151,7 +152,7 @@ Both `solve()` and `solve_rand()` use a recursive **depth-first search** to expl
         - Invert the move on the cube.
 6. If all moves fail to solve within `max_depth`, return `false`.
 
----
+─────────────────────────────────────────────────
 
 #### 🎲 DFS – Randomized Version (`solve_rand()`)
 
@@ -161,7 +162,7 @@ Both `solve()` and `solve_rand()` use a recursive **depth-first search** to expl
 4. Recursion and backtracking logic is the same.
 5. Can produce different solutions on each run, useful in puzzles with many short solutions.
 
----
+─────────────────────────────────────────────────
 
 #### 🔁 Why Randomized?
 
@@ -170,7 +171,7 @@ Randomization helps in cases where:
 - The deterministic DFS misses it due to fixed move priority.
 - Running randomized DFS multiple times increases chance of hitting a short path.
 
----
+─────────────────────────────────────────────────
 
 #### 📝 Pseudocode
 
@@ -189,9 +190,6 @@ bool dfs(cube, depth):
     return false
 
 ```
----
-
-
 
 </details>
 
