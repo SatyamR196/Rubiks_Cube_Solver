@@ -212,7 +212,7 @@ Combines the memory efficiency of DFS with the optimality of BFS by increasing d
     - Guarantees shortest path
     - High memory usage: `O(n)` (can be infeasible for large state spaces like Rubik’s Cube)
 
----
+─────────────────────────────────────────────────
 
 #### 💡 What is IDDFS?
 
@@ -231,7 +231,7 @@ This allows:
 
 Similar to DFS, it also has an option to use random DFS(all moves are tried in random order) instead of plain DFS(All moves are tried in order).
 
----
+─────────────────────────────────────────────────
 
 #### 🔄 Repeated Visits Are Okay!
 
@@ -243,7 +243,7 @@ Yes, **upper levels are re-visited** multiple times:
 
 This sounds inefficient, but in most search trees (including Rubik’s Cube), **the majority of nodes lie in the bottom levels**, so repeated top-level visits aren't costly in practice.
 
----
+─────────────────────────────────────────────────
 
 ### 🧠 Summary
 
@@ -272,7 +272,7 @@ Searches level-by-level and guarantees the shortest solution. Memory-intensive b
 
 > No need to define a max-depth — it automatically finds the solution in ≤ 20 moves.
 
----
+─────────────────────────────────────────────────
 
 ### 📐 How is BFS implemented?
 
@@ -286,7 +286,7 @@ Where:
 - `M` is the cube model (3D/1D/Bitboard)
 - `H` is a user-defined hash function for the chosen model
 
----
+─────────────────────────────────────────────────
 
 ### 🔍 Algorithm Steps
 
@@ -301,6 +301,8 @@ Where:
             - Save parent move
             - Push to queue
 3. Once goal is reached, use `parent` map to **reconstruct solution** backward.
+
+─────────────────────────────────────────────────
 
 #### 📝 Pseudocode
 ```cpp
@@ -334,7 +336,7 @@ BFS_Solver(rCube):
     return rCube  # If no solution is found
 ```
 
----
+─────────────────────────────────────────────────
 
 ### 🧠 Summary
 
@@ -374,7 +376,7 @@ Real-world navigation or puzzle-solving problems are modeled as a graph:
 
 Find the sequence of legal moves (path) from the **scrambled state** (start node) to the **solved state** (goal node) with the **least number of moves** (minimum cost).
 
----
+─────────────────────────────────────────────────
 
 ### II. Initial Approaches to Pathfinding
 
@@ -392,7 +394,7 @@ Find the sequence of legal moves (path) from the **scrambled state** (start node
 - **Optimality Guarantee:** Always finds the optimal path.
 - **Disadvantages:** Can explore unnecessary nodes far from the goal.
 
----
+─────────────────────────────────────────────────
 
 ### III. A\* Search Algorithm
 
@@ -428,7 +430,7 @@ This is like providing direction to UCS algorithm by prioritizing the nodes whic
 
 You can imagine `h(n)` as a hill or gradient that “tilts” the search toward the goal — it adds direction.
 
----
+─────────────────────────────────────────────────
 
 ### IV. Heuristics and Admissibility
 
@@ -460,6 +462,10 @@ An estimate `h(n)` of the cost to reach the goal from node `n`. It is the heart 
 <details>
 
 <summary><strong>Read about How Heuristic is calculated for Rubik's Cube here </strong></summary>
+
+Data 0 
+
+─────────────────────────────────────────────────
 
 Data
 
